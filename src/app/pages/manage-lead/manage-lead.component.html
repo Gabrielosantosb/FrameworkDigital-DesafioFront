@@ -150,26 +150,38 @@
       </button>
 
     </nz-col>
-
-    <nz-col>
-      <td>
-        <button nz-button
-                nzShape="round"
-                nzSize="large"
-                title="Adicionar Lead"
-                (click)="openRegisterLeadModal()"
-        >
-          <span nz-icon nzType="plus"></span>
-        </button>
-      </td>
-    </nz-col>
-
   </nz-row>
 </form>
 
+<nz-row nzGutter="8" nzJustify="start" nzAlign="middle">
+  <nz-col>
+    <button
+      nz-button
+      nzShape="round"
+      nzSize="large"
+      title="Adicionar Lead"
+      (click)="openRegisterLeadModal()"
+    >
+      <span nz-icon nzType="plus"></span>
+    </button>
+  </nz-col>
+
+  <nz-col>
+    <button
+      nz-button
+      nzShape="round"
+      nzSize="large"
+      title="Alternar Status"
+      (click)="showJustInvitedLead = !showJustInvitedLead"
+    >
+      <span nz-icon [nzType]="showJustInvitedLead ? 'check' : 'delete'"></span>
+    </button>
+  </nz-col>
+</nz-row>
+
 <nz-spin [nzSpinning]="isLoading">
   <nz-divider
-    nzText="Encontrados: {{ totalItems }} "
+    [nzText]="showJustInvitedLead ? 'Convidados Encontrados: ' + totalItems : 'Aceitos Encontrados: ' + totalItems">
     nzOrientation="left"
     *ngIf="!!totalItems"></nz-divider>
 

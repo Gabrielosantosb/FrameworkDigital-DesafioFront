@@ -21,6 +21,7 @@ export class ManageLeadComponent implements OnInit, OnDestroy {
   isLoading: boolean = false;
   showPagination: boolean = true;
   showRegisterLeadModal: boolean = false;
+  showJustInvitedLead: boolean = true;
 
 
   constructor(private leadService: LeadService, private formBuilder: FormBuilder, private messageService: MessageService) {
@@ -122,6 +123,7 @@ export class ManageLeadComponent implements OnInit, OnDestroy {
       dateCreatedEnd: [null],
       minPrice: [0],
       maxPrice: [0],
+      status: [1],
     })
   }
 

@@ -6,7 +6,7 @@ export interface LeadFilterModel{
   categoryName : string;
   DateCreatedStart : Date;
   DateCreatedEnd : Date;
-  status : string;
+  status : number;
   minPrice: number;
   maxPrice: number;
 }

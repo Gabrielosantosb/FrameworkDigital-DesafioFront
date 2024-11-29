@@ -95,18 +95,40 @@
     </nz-col>
 
     <nz-col nzSm="8" nzXs="24">
+      <nz-form-label
+      >Preço mínimo
+      </nz-form-label
+      >
       <nz-form-item>
         <nz-form-control>
-          <nz-form-label>Data Inicial</nz-form-label>
-          <nz-date-picker
-            formControlName="dateCreatedStart"
-            nzFormat="dd/MM/yyyy"
-            [nzPlaceHolder]="'Selecione a data inicial'"
-          ></nz-date-picker>
+          <input
+            formControlName="minPrice"
+            placeholder="Preço mínimo"
+            nz-input
+            type="number"
+          >
         </nz-form-control>
       </nz-form-item>
     </nz-col>
+  </nz-row>
 
+  <nz-row nzGutter="12">
+    <nz-col nzSm="8" nzXs="24">
+      <nz-form-label
+      >Preço máximo
+      </nz-form-label
+      >
+      <nz-form-item>
+        <nz-form-control>
+          <input
+            formControlName="maxPrice"
+            placeholder="Preço maximo"
+            nz-input
+            type="number"
+          >
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
   </nz-row>
 
 

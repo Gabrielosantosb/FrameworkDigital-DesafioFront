@@ -19,6 +19,7 @@ export class ManageLeadComponent implements OnInit, OnDestroy {
   pagination = { page: 1, pageSize: 10 };
   totalItems: number = 0;
   isLoading: boolean = false;
+  isTableLoading: boolean = false;
   showPagination: boolean = true;
   showRegisterLeadModal: boolean = false;
   showJustInvitedLead: boolean = true;
@@ -33,7 +34,7 @@ export class ManageLeadComponent implements OnInit, OnDestroy {
   }
 
   loadLeads() {
-    this.isLoading = true;
+    this.isTableLoading = true;
 
     this.filterLeadForm.patchValue({
       status: this.showJustInvitedLead ? 1 : 2,
@@ -44,7 +45,7 @@ export class ManageLeadComponent implements OnInit, OnDestroy {
 
     this.leadService.getLeads(cleanedFilters, this.pagination).pipe(
       takeUntil(this.destroy$),
-      finalize(() => (this.isLoading = false)),
+      finalize(() => (this.isTableLoading = false)),
       catchError((err: HttpErrorResponse) => {
         const errorMessage = err.error?.message || 'Erro ao carregar leads!';
         console.error(err);
@@ -59,11 +60,6 @@ export class ManageLeadComponent implements OnInit, OnDestroy {
 
 
   createNewLead(): void {
-   if(this.createLeadForm.invalid){
-     this.messageService.errorMessage('Preencha os campos corretamente!');
-     this.createLeadForm.markAsDirty()
-     return
-   }
     this.leadService.createLead(this.createLeadForm.value).pipe(takeUntil(this.destroy$),
       catchError((err: HttpErrorResponse) => {
         const errorMessage = err.error?.message || 'Erro ao criar lead!';
@@ -81,14 +77,26 @@ export class ManageLeadComponent implements OnInit, OnDestroy {
   }
 
   updateLeadStatus(leadId: number, newStatus: number): void {
+    this.isTableLoading = true
     this.leadService.updateLeadStatus(leadId, { status: newStatus })
-      .pipe(takeUntil(this.destroy$))
+      .pipe(
+        takeUntil(this.destroy$),
+        finalize(() => (this.isTableLoading = false)),
+        catchError((err: HttpErrorResponse) => {
+          const errorMessage = err.error?.message || 'Erro ao atualizar o status!';
+          this.messageService.errorMessage(errorMessage);
+          return throwError(() => err);
+        })
+      )
       .subscribe({
-      next: () => {
-        this.messageService.successMessage('Status atualizado com sucesso!');
-        this.loadLeads();
-      },
-    });
+        next: () => {
+          this.messageService.successMessage('Status atualizado com sucesso!');
+          this.loadLeads();
+        },
+        error: (err) => {
+          console.error('Erro no updateLeadStatus:', err);
+        }
+      });
   }
 
   openRegisterLeadModal(){

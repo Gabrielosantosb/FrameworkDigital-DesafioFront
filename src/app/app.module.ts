@@ -6,7 +6,8 @@ import { AppComponent } from './app.component';
 import {NZ_DATE_LOCALE, NZ_I18N, pt_BR} from 'ng-zorro-antd/i18n';
 import { ptBR } from "date-fns/locale";
 import { registerLocaleData } from '@angular/common';
-import en from '@angular/common/locales/en';
+import localePt from '@angular/common/locales/pt';
+
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -25,7 +26,7 @@ import {NzSpinModule} from "ng-zorro-antd/spin";
 import {NzModalModule} from "ng-zorro-antd/modal";
 import {NzPopconfirmModule} from "ng-zorro-antd/popconfirm";
 
-registerLocaleData(en);
+registerLocaleData(localePt);
 
 @NgModule({
   declarations: [
@@ -54,6 +55,7 @@ registerLocaleData(en);
   ],
   providers: [
     { provide: NZ_I18N, useValue: pt_BR },
+
     { provide: NZ_DATE_LOCALE, useValue: ptBR },
     { provide: LOCALE_ID, useValue: "pt-BR" },
     MessageService

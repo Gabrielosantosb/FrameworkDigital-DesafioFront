@@ -242,11 +242,9 @@
         <td>{{lead.contactLastName}}</td>
         <td>{{lead.contactEmail}}</td>
         <td>{{ lead.contactPhoneNumber  }}</td>
-        <td>{{ lead.dateCreated }}</td>
+        <td>{{ lead.dateCreated | date: 'dd/MM/yyyy HH:mm:ss' }}</td>
         <td>{{lead.suburb}}</td>
-        <td>{{ lead.price }}</td>
-
-
+        <td>{{ lead.price | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</td>
       </tr>
       </tbody>
 

@@ -145,8 +145,8 @@ export class ManageLeadComponent implements OnInit, OnDestroy {
       category: [""],
       dateCreatedStart: [null],
       dateCreatedEnd: [null],
-      minPrice: [0],
-      maxPrice: [0],
+      minPrice: [null],
+      maxPrice: [null],
       status: [this.showJustInvitedLead ? 1 : 2],
     })
   }

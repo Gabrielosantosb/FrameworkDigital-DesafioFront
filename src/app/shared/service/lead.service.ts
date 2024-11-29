@@ -26,6 +26,13 @@ export class LeadService {
     });
   }
 
+  updateLeadStatus(leadId: number, statusRequest: { status: number }): Observable<string> {
+    return this.http.patch<string>(`${this.ROUTE}/update-lead-status/${leadId}`, statusRequest, {
+      headers: { 'Content-Type': 'application/json' },
+    });
+  }
+
+
 
 
 

@@ -32,29 +32,33 @@ export class ManageLeadComponent implements OnInit, OnDestroy {
    this.loadLeads()
   }
 
-  loadLeads(){
-    this.isLoading = true
+  loadLeads() {
+    this.isLoading = true;
+
+    this.filterLeadForm.patchValue({
+      status: this.showJustInvitedLead ? 1 : 2,
+    });
+
     const filterFormValue = this.filterLeadForm.value;
     const cleanedFilters = this.cleanObject({ ...filterFormValue, ...this.pagination });
 
-
-    this.leadService.getLeads(cleanedFilters, this.pagination).pipe(takeUntil(this.destroy$),
-      finalize(() => this.isLoading = false),
+    this.leadService.getLeads(cleanedFilters, this.pagination).pipe(
+      takeUntil(this.destroy$),
+      finalize(() => (this.isLoading = false)),
       catchError((err: HttpErrorResponse) => {
         const errorMessage = err.error?.message || 'Erro ao carregar leads!';
         console.error(err);
         this.messageService.errorMessage(errorMessage);
         return throwError(() => err);
-      }),
-      ).subscribe((res) =>{
-        this.leadsData = res.leads
-        this.totalItems = res.totalCount
-        console.log('AQUI LEADSDATA', this.leadsData)
-    })
+      })
+    ).subscribe((res) => {
+      this.leadsData = res.leads;
+      this.totalItems = res.totalCount;
+    });
   }
 
+
   createNewLead(): void {
-  console.log('TA VALIDO???', this.createLeadForm.valid)
    if(this.createLeadForm.invalid){
      this.messageService.errorMessage('Preencha os campos corretamente!');
      this.createLeadForm.markAsDirty()
@@ -74,7 +78,17 @@ export class ManageLeadComponent implements OnInit, OnDestroy {
 
 
     })
+  }
 
+  updateLeadStatus(leadId: number, newStatus: number): void {
+    this.leadService.updateLeadStatus(leadId, { status: newStatus })
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+      next: () => {
+        this.messageService.successMessage('Status atualizado com sucesso!');
+        this.loadLeads();
+      },
+    });
   }
 
   openRegisterLeadModal(){
@@ -87,16 +101,26 @@ export class ManageLeadComponent implements OnInit, OnDestroy {
   }
 
 
-  clearFilters(){
+  clearFilters() {
     this.pagination.page = 1;
-    this.filterLeadForm.reset();
-    this.loadLeads()
+    this.showJustInvitedLead = true;
+    this.filterLeadForm.reset({
+      status: 1,
+    });
+    this.loadLeads();
+  }
+
+  toggleChangeTableStatus() {
+    this.showJustInvitedLead = !this.showJustInvitedLead;
+    this.loadLeads();
   }
 
   onPageIndexChange(pageIndex: number): void {
-
     this.pagination.page = pageIndex;
     this.loadLeads();
+  }
+  hasInvitedLeads(): boolean {
+    return this.leadsData.some((lead) => lead.status === 1);
   }
 
 
@@ -123,7 +147,7 @@ export class ManageLeadComponent implements OnInit, OnDestroy {
       dateCreatedEnd: [null],
       minPrice: [0],
       maxPrice: [0],
-      status: [1],
+      status: [this.showJustInvitedLead ? 1 : 2],
     })
   }
 

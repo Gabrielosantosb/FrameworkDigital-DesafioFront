@@ -172,9 +172,9 @@
       nzShape="round"
       nzSize="large"
       title="Alternar Status"
-      (click)="showJustInvitedLead = !showJustInvitedLead"
+      (click)="toggleChangeTableStatus()"
     >
-      <span nz-icon [nzType]="showJustInvitedLead ? 'check' : 'delete'"></span>
+      <span nz-icon [nzType]="showJustInvitedLead ? 'check' : 'user-switch'"></span>
     </button>
   </nz-col>
 </nz-row>
@@ -199,7 +199,7 @@
 
       <thead>
        <tr>
-         <th>Ações</th>
+         <th *ngIf="hasInvitedLeads()">Ações</th>
          <th>Nome</th>
          <th>Sobrenome</th>
          <th>E-mail</th>
@@ -212,13 +212,29 @@
 
       <tbody>
       <tr *ngFor="let lead of leadsData">
-        <td>
-          <button nz-button nzShape="circle" title="Recusar"
-                  style="margin-right: 5px">
+        <td *ngIf="hasInvitedLeads()">
+          <button
+            nz-button
+            nzShape="circle"
+            title="Recusar"
+            nz-popconfirm
+            nzPopconfirmTitle="Tem certeza que deseja marcar com DECLINED este Lead?"
+            (nzOnConfirm)="updateLeadStatus(lead.leadId, 3)"
+            nzPopconfirmPlacement="top"
+            style="margin-right: 5px"
+          >
             <span nz-icon nzType="delete"></span>
           </button>
 
-          <button nz-button nzShape="circle" title="Aceitar"           >
+          <button
+            nz-button
+            nzShape="circle"
+            title="Aceitar"
+            nz-popconfirm
+            nzPopconfirmTitle="Tem certeza que deseja aceitar este Lead?"
+            (nzOnConfirm)="updateLeadStatus(lead.leadId, 2)"
+            nzPopconfirmPlacement="top"
+          >
             <span nz-icon nzType="check"></span>
           </button>
         </td>
@@ -258,7 +274,6 @@
     *nzModalContent
   >
     <nz-row nzGutter="12">
-      <!-- Primeiro Nome -->
       <nz-col nzSm="8" nzXs="24">
         <nz-form-item>
           <nz-form-control [nzValidateStatus]="createLeadForm.get('contactFirstName')!">
@@ -274,7 +289,6 @@
         </nz-form-item>
       </nz-col>
 
-      <!-- Sobrenome -->
       <nz-col nzSm="8" nzXs="24">
         <nz-form-item>
           <nz-form-control [nzValidateStatus]="createLeadForm.get('contactLastName')!">
@@ -290,7 +304,6 @@
         </nz-form-item>
       </nz-col>
 
-      <!-- Email -->
       <nz-col nzSm="8" nzXs="24">
         <nz-form-item>
           <nz-form-control [nzValidateStatus]="createLeadForm.get('contactEmail')!">
@@ -308,7 +321,7 @@
     </nz-row>
 
     <nz-row nzGutter="12">
-      <!-- Telefone -->
+
       <nz-col nzSm="8" nzXs="24">
         <nz-form-item>
           <nz-form-control [nzValidateStatus]="createLeadForm.get('contactPhoneNumber')!">
@@ -324,7 +337,7 @@
         </nz-form-item>
       </nz-col>
 
-      <!-- Subúrbio -->
+
       <nz-col nzSm="8" nzXs="24">
         <nz-form-item>
           <nz-form-control [nzValidateStatus]="createLeadForm.get('suburb')!">
@@ -339,7 +352,7 @@
         </nz-form-item>
       </nz-col>
 
-      <!-- Categoria -->
+
       <nz-col nzSm="8" nzXs="24">
         <nz-form-item>
           <nz-form-control [nzValidateStatus]="createLeadForm.get('category')!">
@@ -357,7 +370,7 @@
     </nz-row>
 
     <nz-row nzGutter="12">
-      <!-- Descrição -->
+
       <nz-col nzSm="8" nzXs="24">
         <nz-form-item>
           <nz-form-control [nzValidateStatus]="createLeadForm.get('description')!">
@@ -372,7 +385,7 @@
         </nz-form-item>
       </nz-col>
 
-      <!-- Preço -->
+
       <nz-col nzSm="8" nzXs="24">
         <nz-form-item>
           <nz-form-control [nzValidateStatus]="createLeadForm.get('price')!">

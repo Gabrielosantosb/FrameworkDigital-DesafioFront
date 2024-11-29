@@ -29,7 +29,7 @@ export class ManageLeadComponent implements OnInit, OnDestroy {
    this.loadLeads()
   }
 
-  private loadLeads(){
+  loadLeads(){
     const filterFormValue = this.filterLeadForm.value;
     const cleanedFilters = this.cleanObject({ ...filterFormValue, ...this.pagination });
 
@@ -52,14 +52,12 @@ export class ManageLeadComponent implements OnInit, OnDestroy {
     this.createLeadForm = this.formBuilder.group({
       contactFirstName: ["", Validators.required],
       contactLastName: ["", Validators.required],
-      contactEmail: ["", Validators.required],
+      contactEmail: ["", Validators.required, Validators.email],
       contactPhone: ["", Validators.required],
       suburb: ["", Validators.required],
       category: ["", Validators.required],
       description: ["", Validators.required],
       price: [0, Validators.required],
-
-
     })
 
 
@@ -69,8 +67,8 @@ export class ManageLeadComponent implements OnInit, OnDestroy {
       contactEmail: [""],
       suburb: [""],
       category: [""],
-      dateCreatedStart: [""],
-      dateCreatedEnd: [""],
+      dateCreatedStart: [null],
+      dateCreatedEnd: [null],
       minPrice: [0],
       maxPrice: [0],
     })

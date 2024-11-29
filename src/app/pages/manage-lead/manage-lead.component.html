@@ -1,2 +1,115 @@
 <nz-page-header class="mobile-header" nzTitle="Gerenciar Leads">
 </nz-page-header>
+
+<form nz-form nzLayout="vertical" [formGroup]="filterLeadForm" (ngSubmit)="loadLeads()">
+  <nz-divider
+    nzText="Filtros"
+    nzOrientation="left"
+    ></nz-divider>
+  <nz-row nzGutter="12">
+    <nz-col nzSm="8" nzXs="24">
+      <nz-form-label
+      >Primeiro nome
+      </nz-form-label
+      >
+      <nz-form-item>
+        <nz-form-control>
+          <input
+            formControlName="contactFirstName"
+            placeholder="Primeiro Nome"
+            nz-input
+            type="text"
+          >
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+
+    <nz-col nzSm="8" nzXs="24">
+      <nz-form-label
+      >Sobrenome
+      </nz-form-label
+      >
+      <nz-form-item>
+        <nz-form-control>
+          <input
+            formControlName="contactLastName"
+            placeholder="Sobrenome"
+            nz-input
+            type="text"
+          >
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+
+    <nz-col nzSm="8" nzXs="24">
+      <nz-form-label
+      >Email
+      </nz-form-label
+      >
+      <nz-form-item>
+        <nz-form-control>
+          <input
+            formControlName="contactEmail"
+            placeholder="E-mail"
+            nz-input
+            type="text"
+          >
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+  </nz-row>
+
+  <nz-row nzGutter="12">
+    <nz-col nzSm="8" nzXs="24">
+      <nz-form-label
+      >Subúrbio
+      </nz-form-label
+      >
+      <nz-form-item>
+        <nz-form-control>
+          <input
+            formControlName="suburb"
+            placeholder="Subúrbio"
+            nz-input
+            type="text"
+          >
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+
+    <nz-col nzSm="8" nzXs="24">
+      <nz-form-label
+      >Categoria
+      </nz-form-label
+      >
+      <nz-form-item>
+        <nz-form-control>
+          <input
+            formControlName="category"
+            placeholder="Categoria"
+            nz-input
+            type="text"
+          >
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+
+    <nz-col nzSm="8" nzXs="24">
+      <nz-form-item>
+        <nz-form-control>
+          <nz-form-label>Data Inicial</nz-form-label>
+          <nz-date-picker
+            formControlName="dateCreatedStart"
+            nzFormat="dd/MM/yyyy"
+            [nzPlaceHolder]="'Selecione a data inicial'"
+          ></nz-date-picker>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+
+  </nz-row>
+
+
+
+
+</form>

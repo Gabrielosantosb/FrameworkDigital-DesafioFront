@@ -22,6 +22,7 @@ import {NzButtonModule} from "ng-zorro-antd/button";
 import {NzIconModule} from "ng-zorro-antd/icon";
 import {NzTableModule} from "ng-zorro-antd/table";
 import {NzSpinModule} from "ng-zorro-antd/spin";
+import {NzModalModule} from "ng-zorro-antd/modal";
 
 registerLocaleData(en);
 
@@ -46,7 +47,8 @@ registerLocaleData(en);
     NzButtonModule,
     NzIconModule,
     NzTableModule,
-    NzSpinModule
+    NzSpinModule,
+    NzModalModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: pt_BR },

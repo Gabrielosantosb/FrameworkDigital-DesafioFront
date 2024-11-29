@@ -150,20 +150,22 @@
       </button>
 
     </nz-col>
+
+    <nz-col>
+      <td>
+        <button nz-button
+                nzShape="round"
+                nzSize="large"
+                title="Adicionar Lead"
+                (click)="openRegisterLeadModal()"
+        >
+          <span nz-icon nzType="plus"></span>
+        </button>
+      </td>
+    </nz-col>
+
   </nz-row>
 </form>
-<nz-row>
-  <td>
-    <button nz-button
-            nzShape="round"
-            nzSize="large"
-            title="Adicionar Lead"
-
-    >
-      <span nz-icon nzType="file-pdfplus"></span>
-    </button>
-  </td>
-</nz-row>
 
 <nz-spin [nzSpinning]="isLoading">
   <nz-divider
@@ -212,17 +214,168 @@
         <td>{{lead.contactLastName}}</td>
         <td>{{lead.contactEmail}}</td>
         <td>{{ lead.contactPhoneNumber  }}</td>
-        <td>{{ lead.dateCreated | date: 'dd/MM/yyyy' }}</td>
+        <td>{{ lead.dateCreated }}</td>
         <td>{{lead.suburb}}</td>
-        <td>{{ lead.price | number:'1.2-2' }}</td>
+        <td>{{ lead.price }}</td>
 
 
       </tr>
       </tbody>
 
     </nz-table>
-
-
   </div>
 </nz-spin>
+
+
+
+<!---------------Modal para registrar lead--------------->
+
+<nz-modal
+  [(nzVisible)]="showRegisterLeadModal"
+  nzTitle="Cadastrar Lead"
+  [nzOkDisabled]="createLeadForm.invalid"
+  (nzOnOk)="createNewLead()"
+  (nzOnCancel)="closeRegisterLeadModal()"
+  nzWidth="80%"
+>
+  <form
+    nz-form
+    nzLayout="vertical"
+    [formGroup]="createLeadForm"
+    (ngSubmit)="createNewLead()"
+    *nzModalContent
+  >
+    <nz-row nzGutter="12">
+      <!-- Primeiro Nome -->
+      <nz-col nzSm="8" nzXs="24">
+        <nz-form-item>
+          <nz-form-control [nzValidateStatus]="createLeadForm.get('contactFirstName')!">
+            <nz-form-label>Primeiro Nome</nz-form-label>
+            <input
+              formControlName="contactFirstName"
+              placeholder="Primeiro Nome"
+              nz-input
+              type="text"
+            />
+
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+
+      <!-- Sobrenome -->
+      <nz-col nzSm="8" nzXs="24">
+        <nz-form-item>
+          <nz-form-control [nzValidateStatus]="createLeadForm.get('contactLastName')!">
+            <nz-form-label>Sobrenome</nz-form-label>
+            <input
+              formControlName="contactLastName"
+              placeholder="Sobrenome"
+              nz-input
+              type="text"
+            />
+
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+
+      <!-- Email -->
+      <nz-col nzSm="8" nzXs="24">
+        <nz-form-item>
+          <nz-form-control [nzValidateStatus]="createLeadForm.get('contactEmail')!">
+            <nz-form-label>Email</nz-form-label>
+            <input
+              formControlName="contactEmail"
+              placeholder="E-mail"
+              nz-input
+              type="email"
+            />
+
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+    </nz-row>
+
+    <nz-row nzGutter="12">
+      <!-- Telefone -->
+      <nz-col nzSm="8" nzXs="24">
+        <nz-form-item>
+          <nz-form-control [nzValidateStatus]="createLeadForm.get('contactPhoneNumber')!">
+            <nz-form-label>Telefone</nz-form-label>
+            <input
+              formControlName="contactPhoneNumber"
+              placeholder="Telefone"
+              nz-input
+              type="tel"
+            />
+
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+
+      <!-- Subúrbio -->
+      <nz-col nzSm="8" nzXs="24">
+        <nz-form-item>
+          <nz-form-control [nzValidateStatus]="createLeadForm.get('suburb')!">
+            <nz-form-label>Subúrbio</nz-form-label>
+            <input
+              formControlName="suburb"
+              placeholder="Subúrbio"
+              nz-input
+              type="text"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+
+      <!-- Categoria -->
+      <nz-col nzSm="8" nzXs="24">
+        <nz-form-item>
+          <nz-form-control [nzValidateStatus]="createLeadForm.get('category')!">
+            <nz-form-label>Categoria</nz-form-label>
+            <input
+              formControlName="category"
+              placeholder="Categoria"
+              nz-input
+              type="text"
+            />
+
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+    </nz-row>
+
+    <nz-row nzGutter="12">
+      <!-- Descrição -->
+      <nz-col nzSm="8" nzXs="24">
+        <nz-form-item>
+          <nz-form-control [nzValidateStatus]="createLeadForm.get('description')!">
+            <nz-form-label>Descrição</nz-form-label>
+            <input
+              formControlName="description"
+              placeholder="Descrição"
+              nz-input
+              type="text"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+
+      <!-- Preço -->
+      <nz-col nzSm="8" nzXs="24">
+        <nz-form-item>
+          <nz-form-control [nzValidateStatus]="createLeadForm.get('price')!">
+            <nz-form-label>Preço</nz-form-label>
+            <input
+              formControlName="price"
+              placeholder="Preço"
+              nz-input
+              type="number"
+            />
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+    </nz-row>
+  </form>
+</nz-modal>
+
 

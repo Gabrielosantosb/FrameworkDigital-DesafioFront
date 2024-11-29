@@ -2,7 +2,6 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {catchError, finalize, Subject, takeUntil, throwError} from "rxjs";
 import {LeadService} from "../../shared/service/lead.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {PaginationModel} from "../../shared/model/Pagination/pagination.model";
 import {HttpErrorResponse} from "@angular/common/http";
 import {MessageService} from "../../shared/utils/messageService";
 import {LeadModel} from "../../shared/interface/lead.model";
@@ -21,6 +20,7 @@ export class ManageLeadComponent implements OnInit, OnDestroy {
   totalItems: number = 0;
   isLoading: boolean = false;
   showPagination: boolean = true;
+  showRegisterLeadModal: boolean = false;
 
 
   constructor(private leadService: LeadService, private formBuilder: FormBuilder, private messageService: MessageService) {
@@ -32,6 +32,7 @@ export class ManageLeadComponent implements OnInit, OnDestroy {
   }
 
   loadLeads(){
+    this.isLoading = true
     const filterFormValue = this.filterLeadForm.value;
     const cleanedFilters = this.cleanObject({ ...filterFormValue, ...this.pagination });
 
@@ -51,11 +52,46 @@ export class ManageLeadComponent implements OnInit, OnDestroy {
     })
   }
 
+  createNewLead(): void {
+  console.log('TA VALIDO???', this.createLeadForm.valid)
+   if(this.createLeadForm.invalid){
+     this.messageService.errorMessage('Preencha os campos corretamente!');
+     this.createLeadForm.markAsDirty()
+     return
+   }
+    this.leadService.createLead(this.createLeadForm.value).pipe(takeUntil(this.destroy$),
+      catchError((err: HttpErrorResponse) => {
+        const errorMessage = err.error?.message || 'Erro ao criar lead!';
+        console.error(err);
+        this.messageService.errorMessage(errorMessage);
+        return throwError(() => err);
+      }),
+      ).subscribe((res) =>{
+          console.log('aqui a res ao criar', res)
+          this.messageService.successMessage('Lead Criada com sucesso!')
+          this.closeRegisterLeadModal()
+
+
+    })
+
+  }
+
+  openRegisterLeadModal(){
+    this.showRegisterLeadModal = true;
+  }
+
+  closeRegisterLeadModal(){
+    this.showRegisterLeadModal = false;
+    this.loadLeads()
+  }
+
 
   clearFilters(){
     this.pagination.page = 1;
     this.filterLeadForm.reset();
+    this.loadLeads()
   }
+
   onPageIndexChange(pageIndex: number): void {
 
     this.pagination.page = pageIndex;
@@ -65,15 +101,15 @@ export class ManageLeadComponent implements OnInit, OnDestroy {
 
   private loadInstances(){
     this.createLeadForm = this.formBuilder.group({
-      contactFirstName: ["", Validators.required],
-      contactLastName: ["", Validators.required],
-      contactEmail: ["", Validators.required, Validators.email],
-      contactPhone: ["", Validators.required],
-      suburb: ["", Validators.required],
-      category: ["", Validators.required],
-      description: ["", Validators.required],
-      price: [0, Validators.required],
-    })
+      contactFirstName: ['', Validators.required],
+      contactLastName: ['', Validators.required],
+      contactEmail: ['', [Validators.required, Validators.email]],
+      contactPhoneNumber: ['', Validators.required],
+      suburb: ['', Validators.required],
+      category: ['', Validators.required],
+      description: ['', Validators.required],
+      price: [null, [Validators.required, Validators.min(1)]],
+    });
 
 
     this.filterLeadForm = this.formBuilder.group({

@@ -152,6 +152,18 @@
     </nz-col>
   </nz-row>
 </form>
+<nz-row>
+  <td>
+    <button nz-button
+            nzShape="round"
+            nzSize="large"
+            title="Adicionar Lead"
+
+    >
+      <span nz-icon nzType="file-pdfplus"></span>
+    </button>
+  </td>
+</nz-row>
 
 <nz-spin [nzSpinning]="isLoading">
   <nz-divider
@@ -188,7 +200,7 @@
       <tr *ngFor="let lead of leadsData">
         <td>
           <button nz-button nzShape="circle" title="Recusar"
-                  style="margin-left: 5px">
+                  style="margin-right: 5px">
             <span nz-icon nzType="delete"></span>
           </button>
 

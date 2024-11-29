@@ -4,7 +4,7 @@ export interface LeadModel {
   contactLastName: string;
   contactEmail: string;
   contactPhoneNumber: string;
-  dateCreated: string;
+  dateCreated: Date;
   suburb: string;
   category: string;
   description: string;

@@ -161,7 +161,6 @@
 
   <div nz-row class="table-responsive">
     <nz-table
-      nzShowSizeChanger
       [nzData]="leadsData"
       nzSize="default"
       [nzFrontPagination]="false"
@@ -171,6 +170,43 @@
       [nzPageSize]="pagination.pageSize"
       (nzPageIndexChange)="onPageIndexChange($event)"
     >
+
+      <thead>
+       <tr>
+         <th>Ações</th>
+         <th>Nome</th>
+         <th>Sobrenome</th>
+         <th>E-mail</th>
+         <th>Telefone</th>
+         <th>Data de criação</th>
+         <th>Subúrbio</th>
+         <th>Preço</th>
+       </tr>
+      </thead>
+
+      <tbody>
+      <tr *ngFor="let lead of leadsData">
+        <td>
+          <button nz-button nzShape="circle" title="Recusar"
+                  style="margin-left: 5px">
+            <span nz-icon nzType="delete"></span>
+          </button>
+
+          <button nz-button nzShape="circle" title="Aceitar"           >
+            <span nz-icon nzType="check"></span>
+          </button>
+        </td>
+        <td>{{lead.contactFirstName}}</td>
+        <td>{{lead.contactLastName}}</td>
+        <td>{{lead.contactEmail}}</td>
+        <td>{{ lead.contactPhoneNumber  }}</td>
+        <td>{{ lead.dateCreated | date: 'dd/MM/yyyy' }}</td>
+        <td>{{lead.suburb}}</td>
+        <td>{{ lead.price | number:'1.2-2' }}</td>
+
+
+      </tr>
+      </tbody>
 
     </nz-table>
 

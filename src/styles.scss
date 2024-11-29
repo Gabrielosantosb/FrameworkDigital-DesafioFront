@@ -1,5 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
 
+.accept-icon {
+  color: green;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.decline-icon {
+  color: red;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+
 .table-responsive {
   margin-top: 10px;
   display: block;

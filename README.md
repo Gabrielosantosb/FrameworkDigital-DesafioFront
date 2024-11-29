@@ -1,27 +1,33 @@
-# FrameworkDigitalDesafioFront
+# Frontend - Gestão de Leads
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.16.
+Este projeto foi desenvolvido em **Angular 16**, utilizando a versão **16** da biblioteca **ng-zorro** para componentes visuais.
 
-## Development server
+---
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Funcionalidades Principais
 
-## Code scaffolding
+1. **Criar uma Lead**:
+   - Use o formulário disponível para cadastrar uma nova lead.
+   - Certifique-se de fornecer um e-mail real ao cadastrar, pois o serviço de envio de e-mails está funcionando.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+2. **Visualizar Leads**:
+   - As leads cadastradas aparecem em uma tabela.
+   - É possível alterar o status de uma lead diretamente na tabela.
 
-## Build
+3. **Modificar a Visualização**:
+   - Após modificar o status de uma lead, um botão de "Alterar Visualização" será exibido ao lado do botão de "Adicionar".
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+---
 
-## Running unit tests
+## Requisitos
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- **Node.js** e **npm** instalados.
+- **Angular CLI 16** ou superior.
 
-## Running end-to-end tests
+---
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Inicialização do Projeto
 
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+1. **Instale as dependências**:
+   ```bash
+   npm install

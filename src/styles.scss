@@ -9,15 +9,13 @@
   background-color: white;
 }
 
+.button-group {
+  display: flex;
+  justify-content: flex-end;
+}
+
 @media (max-width: 768px){
   .mobile-header {
     margin-top: 50px;
-  }
-  .button-group{
-    display: flex;
-    flex-direction: column;
-    text-align: right;
-    gap: 5px;
-    width: 100%;
   }
 }

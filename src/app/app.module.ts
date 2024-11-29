@@ -18,6 +18,10 @@ import {NzDatePickerModule} from "ng-zorro-antd/date-picker";
 import {NzDividerModule} from "ng-zorro-antd/divider";
 import {NzInputModule} from "ng-zorro-antd/input";
 import {MessageService} from "./shared/utils/messageService";
+import {NzButtonModule} from "ng-zorro-antd/button";
+import {NzIconModule} from "ng-zorro-antd/icon";
+import {NzTableModule} from "ng-zorro-antd/table";
+import {NzSpinModule} from "ng-zorro-antd/spin";
 
 registerLocaleData(en);
 
@@ -38,7 +42,11 @@ registerLocaleData(en);
     NzSelectModule,
     NzDatePickerModule,
     NzDividerModule,
-    NzInputModule
+    NzInputModule,
+    NzButtonModule,
+    NzIconModule,
+    NzTableModule,
+    NzSpinModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: pt_BR },

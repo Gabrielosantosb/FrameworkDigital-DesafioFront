@@ -3,7 +3,7 @@ import {HttpClient, HttpParams} from "@angular/common/http";
 import {PaginationModel} from "../model/Pagination/pagination.model";
 import {LeadFilterModel} from "../model/Lead/lead-filter.model";
 import {Observable} from "rxjs";
-import {LeadModel} from "../interface/lead.model";
+import {LeadModel, PaginatedLeads} from "../interface/lead.model";
 
 @Injectable({
   providedIn: 'root'
@@ -13,10 +13,10 @@ export class LeadService {
   constructor(private http: HttpClient) { }
 
 
-  getLeads(leadFilter?: LeadFilterModel, pagination?: PaginationModel): Observable<LeadModel[]> {
+  getLeads(leadFilter?: LeadFilterModel, pagination?: PaginationModel): Observable<PaginatedLeads> {
     const params = this.serializeParams({ ...leadFilter, ...pagination });
 
-    return this.http.get<LeadModel[]>(`${this.ROUTE}/get-leads`, { params });
+    return this.http.get<PaginatedLeads>(`${this.ROUTE}/get-leads`, { params });
   }
 
   private serializeParams(params: any): { [param: string]: string } {

@@ -18,7 +18,9 @@ export class ManageLeadComponent implements OnInit, OnDestroy {
   createLeadForm!: FormGroup
   leadsData !: LeadModel[]
   pagination = { page: 1, pageSize: 10 };
+  totalItems: number = 0;
   isLoading: boolean = false;
+  showPagination: boolean = true;
 
 
   constructor(private leadService: LeadService, private formBuilder: FormBuilder, private messageService: MessageService) {
@@ -43,11 +45,24 @@ export class ManageLeadComponent implements OnInit, OnDestroy {
         return throwError(() => err);
       }),
       ).subscribe((res) =>{
-        this.leadsData = res
+        this.leadsData = res.leads
+        this.totalItems = res.totalCount
         console.log('AQUI LEADSDATA', this.leadsData)
     })
-
   }
+
+
+  clearFilters(){
+    this.pagination.page = 1;
+    this.filterLeadForm.reset();
+  }
+  onPageIndexChange(pageIndex: number): void {
+
+    this.pagination.page = pageIndex;
+    this.loadLeads();
+  }
+
+
   private loadInstances(){
     this.createLeadForm = this.formBuilder.group({
       contactFirstName: ["", Validators.required],

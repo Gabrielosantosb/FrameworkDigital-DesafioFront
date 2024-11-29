@@ -1,1 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
+
+.table-responsive {
+  margin-top: 10px;
+  display: block;
+  overflow-x: auto;
+  white-space: nowrap;
+  width: 100%;
+  background-color: white;
+}
+
+@media (max-width: 768px){
+  .mobile-header {
+    margin-top: 50px;
+  }
+  .button-group{
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+    gap: 5px;
+    width: 100%;
+  }
+}
